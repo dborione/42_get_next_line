@@ -10,36 +10,42 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "get_next_line.h"
-
+#include "get_next_line.h"
+// # define BUF_SIZE
 char	*get_next_line(int fd)
 {
 	static char	*stash;
-	char		*buf;
-	int			ret;
+	char		*buf; // buffer de destination
+	int			count;//nbre d'octets a lire: line size
+	int			line_count; // nbr de char lus sur la ligne;
+	int			ret; // valuer de returrn: nbre d'octets lus
 
 	buf = malloc(sizeof(*buf) * (BUF_SIZE + 1));
 	if (!buf)
 		return (NULL);
-	ret = read(fd, buf, BUF_SIZE);
-	if (!ret)
+	buf = read(fd, buf, BUF_SIZE);
+	while (*buf <= BUF_SIZE)
 	{
-		free (buf);
-		return (NULL);
+		buf++;
+		
 	}
-	stash = malloc(sizeof(*stash) * (ret + 1));
-	if (!stash)
+	if (*stash == '\n')
+
+	stash = buf;
+	buf[i] = '\0';
+	ft_pustr(buf);
+
+
+
+
+
+	while (ret = read(fd, buf, BUF_SIZE))
 	{
-		free (buf);
-		return (NULL);
+		buf[ret] = '\0';
+		ft_putstr(buf);
 	}
-	while (buf)
-	{
-		if (*stash == '\n')
-			ft_putstr(stash);
-			//clean up stash
-		buf = read(fd, buf, BUF_SIZE);
-		stash = buf;
-	}
-	close(fd);
+//	close(file_to_read);
+//	return (ligne lue\n)
+//		ou return (-1);
+
 }
