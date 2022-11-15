@@ -17,8 +17,10 @@ char	*get_next_line(int fd)
 {
 	static char	*stash = "";
 	char		*buf;
+	int	ret;
+	int i;
 
-
+	i = 0;
 	if (BUFFER_SIZE < 0)
 		return (NULL);
 	buf = malloc(sizeof(*buf) * (BUFFER_SIZE + 1));
@@ -26,16 +28,17 @@ char	*get_next_line(int fd)
 		return (NULL);
 	while (fd)
 	{
-		read(fd, buf, BUFFER_SIZE);
+		ret = read(fd, buf, BUFFER_SIZE);
+		if (ret == 0)
+			return (stash);
 		stash = ft_strjoin(stash, buf);
-		while (*stash)
-		{
-			if (*stash == '\n')
-				return (stash);
-			write(1, &(*stash), 1);
-			stash++;
-		}
+		// while (stash[i])
+		// {
+		// 	while (stash[i] != '\n')
+		// 		i++;
+		// }
 	}
 	free (buf);
+	free (stash);
 	return (stash);
 }
