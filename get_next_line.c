@@ -11,35 +11,48 @@
 /* ************************************************************************** */
 
 # include "get_next_line.h"
+#include <stdio.h>
 
 char	*get_next_line(int fd)
 {
 	static char	*stash;
 	char		*buf;
-	int			ret;
+	int	ret;
 
-	buf = malloc(sizeof(*buf) * (BUF_SIZE + 1));
+	if (BUFFER_SIZE < 0)
+		return (NULL);
+	/*if (*stash)
+		free (stash);*/
+	buf = malloc(sizeof(*buf) * (BUFFER_SIZE + 1));
 	if (!buf)
 		return (NULL);
-	ret = read(fd, buf, BUF_SIZE);
-	if (!ret)
+	stash = "";
+	ret = read(fd, buf, BUFFER_SIZE);
+	//printf("%d\n", ret);
+	while (ret > 0)
 	{
-		free (buf);
-		return (NULL);
+	//	if (*stash == '\n')
+	//		return(stash);
+	//	stash = ft_strjoin(stash, buf);
+	//	if (!stash)
+	//	{
+	//		free (stash);
+		// 	free (buf);
+		// 	return (NULL);
+		// }
+		// stash++;
+		
+		// while (buf)
+		// {
+		// 	if (*buf == '\n')
+		// 		return (buf);
+		// 	buf++;
+		// }
+		ret = read(fd, buf, BUFFER_SIZE);
+		stash = ft_strjoin(stash, buf);
+		if (*buf == '\n')
+			printf("%s", stash);
+		ret--;
 	}
-	stash = malloc(sizeof(*stash) * (ret + 1));
-	if (!stash)
-	{
-		free (buf);
-		return (NULL);
-	}
-	while (buf)
-	{
-		if (*stash == '\n')
-			ft_putstr(stash);
-			//clean up stash
-		buf = read(fd, buf, BUF_SIZE);
-		stash = buf;
-	}
-	close(fd);
+	return (stash);
 }

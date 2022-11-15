@@ -13,7 +13,17 @@
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 
-# include <stdarg.h>
+# include <stdlib.h> //malloc
+# include <unistd.h> //write/read
+# include <fcntl.h> //open
+# include <string.h> //size_t
 
+
+char	*ft_strjoin(char const *s1, char const *s2);
+size_t	ft_strlen(const char *str);
+size_t	ft_strlcat(char *dst, const char *src, size_t dstsize);
+size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
+char	*get_next_line(int fd);
+void	ft_putstr(char *s);
 
 #endif
