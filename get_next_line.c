@@ -17,7 +17,6 @@ char	*get_next_line(int fd)
 {
 	static char	*stash;
 	char		*buf;
-	int	ret;
 
 	if (BUFFER_SIZE < 0)
 		return (NULL);
@@ -27,32 +26,23 @@ char	*get_next_line(int fd)
 	if (!buf)
 		return (NULL);
 	stash = "";
-	ret = read(fd, buf, BUFFER_SIZE);
-	//printf("%d\n", ret);
-	while (ret > 0)
+	while (read(fd, buf, BUFFER_SIZE) > 0)
 	{
-	//	if (*stash == '\n')
-	//		return(stash);
-	//	stash = ft_strjoin(stash, buf);
-	//	if (!stash)
-	//	{
-	//		free (stash);
-		// 	free (buf);
-		// 	return (NULL);
-		// }
-		// stash++;
-		
-		// while (buf)
-		// {
-		// 	if (*buf == '\n')
-		// 		return (buf);
-		// 	buf++;
-		// }
-		ret = read(fd, buf, BUFFER_SIZE);
-		stash = ft_strjoin(stash, buf);
 		if (*buf == '\n')
-			printf("%s", stash);
-		ret--;
+			ft_putstr(stash);
+		stash = ft_strjoin(stash, buf);
+		if (!stash)
+		{
+			free (stash);
+			free (buf);
+			return (NULL);
+		}
 	}
+	// while (stash)
+	// {
+	// 	if (*stash == '\n')
+	// 		ft_putstr(stash);
+	// 	//*stash++;
+	// }
 	return (stash);
 }
