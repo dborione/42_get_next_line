@@ -19,16 +19,16 @@ char	*get_next_line(int fd)
 	char		*buf;
 	int	i;
 
+	printf("%zd\n", read(fd, buf, BUFFER_SIZE));
 	i = 0;
 	if (BUFFER_SIZE < 0)
 		return (NULL);
 	if (stash)
 		free (stash);
-	// buf = malloc(sizeof(*buf) * (BUFFER_SIZE + 1));
-	// if (!buf)
-	// 	return (NULL);
+	buf = malloc(sizeof(*buf) * (BUFFER_SIZE + 1));
+	if (!buf)
+		return (NULL);
 	stash = "";
-	read(fd, buf, BUFFER_SIZE);
 	while (read(fd, buf, BUFFER_SIZE))
 	{
 		stash = ft_strjoin(stash, buf);
