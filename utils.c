@@ -65,3 +65,5 @@ size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
 	dst[dstlen + i] = '\0';
 	return (dstlen + srclen);
 }
+		// printf("buf:%s\n", buf);
+		// printf("stash:%s\n", stash);
