@@ -65,5 +65,27 @@ size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
 	dst[dstlen + i] = '\0';
 	return (dstlen + srclen);
 }
+
+char	*ft_substr(char const *s, unsigned int start, size_t len)
+{
+	char	*s2;
+	size_t	s_len;
+
+	if (!s)
+		return (NULL);
+	s_len = ft_strlen(s);
+	if (start >= s_len)
+	{
+		start = 0;
+		len = 0;
+	}
+	if ((start + len > s_len) || (len > s_len))
+		len = s_len - start;
+	s2 = malloc(sizeof(*s2) * (len + 1));
+	if (!s2)
+		return (NULL);
+	ft_strlcpy(s2, &s[start], len + 1);
+	return (s2);
+}
 		// printf("buf:%s\n", buf);
 		// printf("stash:%s\n", stash);

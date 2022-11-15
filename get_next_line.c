@@ -15,34 +15,26 @@
 
 char	*get_next_line(int fd)
 {
-	static char	*stash;
+	static char	*stash = "";
 	char		*buf;
-	int	i;
 
-	printf("%zd\n", read(fd, buf, BUFFER_SIZE));
-	i = 0;
+
 	if (BUFFER_SIZE < 0)
 		return (NULL);
-	if (stash)
-		free (stash);
 	buf = malloc(sizeof(*buf) * (BUFFER_SIZE + 1));
 	if (!buf)
 		return (NULL);
-	stash = "";
-	while (read(fd, buf, BUFFER_SIZE))
+	while (fd)
 	{
+		read(fd, buf, BUFFER_SIZE);
 		stash = ft_strjoin(stash, buf);
-		if (!stash)
+		while (*stash)
 		{
-			free (stash);
-			free (buf);
-			return (NULL);
+			if (*stash == '\n')
+				return (stash);
+			write(1, &(*stash), 1);
+			stash++;
 		}
-	}
-	while (stash[i] && stash[i] != '\n')
-	{
-		write(1, &stash[i], 1);
-	 	i++;
 	}
 	free (buf);
 	return (stash);
