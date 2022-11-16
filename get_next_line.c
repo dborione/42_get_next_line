@@ -32,13 +32,14 @@ char	*get_next_line(int fd)
 		if (ret == 0)
 			return (stash);
 		stash = ft_strjoin(stash, buf);
-		// while (stash[i])
-		// {
-		// 	while (stash[i] != '\n')
-		// 		i++;
-		// }
+		while (*stash)
+		{
+			if (*stash == '\n')
+				return (stash);
+			write(1, &(*stash), 1);
+			stash++;
+		}
 	}
 	free (buf);
-	free (stash);
 	return (stash);
 }
