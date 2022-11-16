@@ -17,7 +17,7 @@ char	*get_next_line(int fd)
 {
 	static char	*stash = "";
 	char		*buf;
-	int	ret;
+	static int	ret;
 	int i;
 
 	i = 0;
@@ -32,12 +32,15 @@ char	*get_next_line(int fd)
 		if (ret == 0)
 			return (stash);
 		stash = ft_strjoin(stash, buf);
-		while (*stash)
+		while (stash[i])
 		{
-			if (*stash == '\n')
+			if (stash[i] == '\n')
+			{
+				printf("stash:%s\n", stash);
 				return (stash);
-			write(1, &(*stash), 1);
-			stash++;
+			}
+			write(1, &(stash[i]), 1);
+			i++;
 		}
 	}
 	free (buf);
