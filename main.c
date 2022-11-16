@@ -4,7 +4,7 @@
 int main()
 {
     int fd;
-    int i = 10;
+    int i = 2;
     fd = open ("test.txt", O_RDONLY);
     while (i > 0 && fd)
     {

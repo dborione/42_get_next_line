@@ -16,16 +16,19 @@
 char	*get_next_line(int fd)
 {
 	static char	*stash;
+	char *line;
 	char		*buf;
 	int			ret;
 	static int	i;
 
+	line = NULL;
 	if (!i)
 		i = 0;
 	else
 		i++;
 	if (!stash)
 		stash = "";
+	ft_putstr(stash);
 	if (BUFFER_SIZE < 0)
 		return (NULL);
 	buf = malloc(sizeof(*buf) * (BUFFER_SIZE + 1));
@@ -41,13 +44,15 @@ char	*get_next_line(int fd)
 		{
 			if (stash[i] == '\n')
 			{
-				write(1, &(stash[i]), 1);
-				return (stash);
+				line = ft_substr(stash, 0, i);
+				//ft_putstr(line);
+				free (stash);
+				return (line);
 			}
-			write(1, &(stash[i]), 1);
 			i++;
 		}
 	}
 	free (buf);
-	return (stash);
+	free (stash);
+	return (line);
 }
