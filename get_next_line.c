@@ -15,12 +15,17 @@
 
 char	*get_next_line(int fd)
 {
-	static char	*stash = "";
+	static char	*stash;
 	char		*buf;
-	static int	ret;
-	int i;
+	int			ret;
+	static int	i;
 
-	i = 0;
+	if (!i)
+		i = 0;
+	else
+		i++;
+	if (!stash)
+		stash = "";
 	if (BUFFER_SIZE < 0)
 		return (NULL);
 	buf = malloc(sizeof(*buf) * (BUFFER_SIZE + 1));
@@ -36,7 +41,7 @@ char	*get_next_line(int fd)
 		{
 			if (stash[i] == '\n')
 			{
-				printf("stash:%s\n", stash);
+				write(1, &(stash[i]), 1);
 				return (stash);
 			}
 			write(1, &(stash[i]), 1);

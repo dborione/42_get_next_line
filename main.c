@@ -1,11 +1,16 @@
 # include "get_next_line.h"
+# include <stdio.h>
 
 int main()
 {
     int fd;
-
+    int i = 10;
     fd = open ("test.txt", O_RDONLY);
-    get_next_line(fd);
+    while (i > 0 && fd)
+    {
+        get_next_line(fd);
+        i--;
+    }
     close (fd);
     return (0);
 }
