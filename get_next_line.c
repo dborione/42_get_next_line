@@ -15,20 +15,18 @@
 
 char	*get_next_line(int fd)
 {
-	static char	*stash;
-	char *line;
-	char		*buf;
-	int			ret;
 	static int	i;
+	static char	*stash;
+	char		*buf;
+	int j;
 
-	line = NULL;
 	if (!i)
 		i = 0;
 	else
 		i++;
+	j = i;
 	if (!stash)
 		stash = "";
-	ft_putstr(stash);
 	if (BUFFER_SIZE < 0)
 		return (NULL);
 	buf = malloc(sizeof(*buf) * (BUFFER_SIZE + 1));
@@ -36,23 +34,19 @@ char	*get_next_line(int fd)
 		return (NULL);
 	while (fd)
 	{
-		ret = read(fd, buf, BUFFER_SIZE);
-		if (ret == 0)
+		if ((read(fd, buf, BUFFER_SIZE)) <= 0)
 			return (stash);
 		stash = ft_strjoin(stash, buf);
 		while (stash[i])
 		{
 			if (stash[i] == '\n')
 			{
-				line = ft_substr(stash, 0, i);
-				//ft_putstr(line);
-				free (stash);
-				return (line);
+				free (buf);
+				return (ft_substr(stash, j, (i + 1) - j));
 			}
 			i++;
 		}
 	}
 	free (buf);
-	free (stash);
-	return (line);
+	return (stash);
 }
