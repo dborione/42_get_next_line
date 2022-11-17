@@ -19,8 +19,9 @@ char	*get_next_line(int fd)
 	static char	*stash;
 	char		*buf;
 	int j;
+	int ret;
 
-	if (fd != 3)
+	if (!fd)
 		return (NULL);
 	if (!i)
 		i = 0;
@@ -34,13 +35,18 @@ char	*get_next_line(int fd)
 	buf = malloc(sizeof(*buf) * (BUFFER_SIZE + 1));
 	if (!buf)
 		return (NULL);
-	while (read(fd, buf, BUFFER_SIZE))
+	while ((ret = read(fd, buf, BUFFER_SIZE)))
 	{
 		stash = ft_strjoin(stash, buf);
+		//printf("stash:%s\n", stash);
 		while (stash[i])
-		{
-			if (stash[i] == '\n')
+		{	
+			printf("%d", ret);
+			printf(":%c ", stash[i]);
+			if ( stash[i] == '\n')
 			{
+				// printf("j:%d ", j);
+				// printf("i:%d ", i);		
 				free (buf);
 				return (ft_substr(stash, j, (i + 1) - j));
 			}
@@ -48,5 +54,5 @@ char	*get_next_line(int fd)
 		}
 	}
 	free (buf);
-	return (stash);
+	return (NULL);
 }
