@@ -102,3 +102,5 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		// printf("buf:%s\n", buf);
 		// printf("stash:%s\n", stash);
 		//printf("%c|", stash[i]);
+
+		//OPEN_MAX

@@ -15,14 +15,19 @@
 
 char	*get_next_line(int fd)
 {
+	int	i;
 	static char	*stash;
 	char		*buf;
-	int i;
-	int j = BUFFER_SIZE;
+	//int j;
+	//int ret;
 
-	i = 0;
 	if (!fd)
 		return (NULL);
+	//if (!i)
+	i = 0;
+	// else
+	// 	i++;
+	// j = i;
 	if (!stash)
 		stash = "";
 	if (BUFFER_SIZE < 0)
@@ -30,16 +35,41 @@ char	*get_next_line(int fd)
 	buf = malloc(sizeof(*buf) * (BUFFER_SIZE + 1));
 	if (!buf)
 		return (NULL);
-	while ((j > 0) && (read(fd, buf, 1) && buf[i] != '\n'))
+	while (read(fd, buf, BUFFER_SIZE))
 	{
-		// if (read(fd, buf, BUFFER_SIZE) == 0)
-		// 	return (NULL);
-		i++;
-		j--;
+		stash = ft_strjoin(buf, stash);
+		//printf("stash:%s\n", stash);
+		// while (stash[i])
+		// {
+		// 	if (stash[i] == '\n')
+		// 	{
+		// 		free (buf);
+		// 		return (stash);
+		// 	}
+		// 	i++;
+		//}
+		//printf("stash:%s\n", stash);
+		// printf("%d:", ret);
+		// printf("buf:%s:fin\n", buf);
+		// printf("stash:%s:fin\n", stash);
+		
+		// while (stash[i])
+		// {	
+			
+		// 	//printf("%d", ret);
+		// 	//printf(":%c ", stash[i]);
+		// 	if (stash[i] == '\n')
+		// 	{
+		// 		// printf("j:%d ", j);
+		// 		// printf("i:%d ", i);		
+		// 		free (buf);
+		// 		//if (ret < BUFFER_SIZE)
+
+		// 		return (ft_substr(stash, j, (i + 1) - j));
+		// 	}
+		//i++;
+		// }
 	}
-	printf("%d", i);
-	// stash = ft_substr(buf, 0, i + 1);
-	// printf("buf:%s:fin", buf);
 	free (buf);
 	return (stash);
 }
