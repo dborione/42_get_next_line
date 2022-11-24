@@ -4,7 +4,7 @@
 int main()
 {
     int fd;
-    int i = 8;
+    int i = 1;
     fd = open ("test.txt", O_RDONLY);
     while (i > 0 && fd)
     {
@@ -12,5 +12,6 @@ int main()
         i--;
     }
     close (fd);
+    //system("leaks a.out");
     return (0);
 }
