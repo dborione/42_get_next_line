@@ -17,15 +17,20 @@ char	*get_next_line(int fd)
 {
 	static char	*stash;
 	char		*buf;
-	int i;
+	static int i;
+	int j;
 
-	i = 0;
 	if (!fd)
 		return (NULL);
-	if (!stash)
-		stash = "";
 	if (BUFFER_SIZE < 0)
 		return (NULL);
+	if (!i)
+		i = 0;
+	else
+		i++;
+	j = i;
+	if (!stash)
+		stash = "";
 	buf = malloc(sizeof(*buf) * (BUFFER_SIZE + 1));
 	if (!buf)
 		return (NULL);
@@ -35,14 +40,13 @@ char	*get_next_line(int fd)
 		while (stash[i])
 		{
 			if (stash[i] == '\n')
-				return (stash);
+			{
+				free (buf);
+				return (ft_substr(stash, j, (i + 1) - j));
+			}
 			i++;
 		}
 	}
-	printf("%d\n", i);
-	//stash = ft_substr(buf, 0, i + 1);
-	//printf("buf:%s:fin", buf);
-	//stash = ft_strjoin(buf, stash);
-	//free (buf);
-	return (stash);
+	free (buf);
+	return (NULL);
 }
