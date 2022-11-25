@@ -15,32 +15,24 @@
 
 char	*get_next_line_letters(int fd)
 {
-	static char	*stash;
-	char		*buf;
+	static char	*buf;
 	char		*line;
-	int	i;
+	int			i;
 
 	if (!fd)
 		return (NULL);
 	buf = malloc(sizeof(*buf) * (BUFFER_SIZE + 1));
 	if (!buf)
 		return (NULL);
-	if (!stash)
-		stash = "";
 	i = 0;
 	while (i < BUFFER_SIZE && read(fd, buf, 1))
 	{
-		stash = ft_strjoin(stash, buf);
 		if (*buf == '\n')
 		{
-			line = malloc(sizeof(*buf) * (BUFFER_SIZE + 1));
-			if (!line)
-				return (NULL);
-			line = stash;
-			stash = buf + 1;
-			free (buf);
+			line[ft_strlen(line)] = '\n';
 			return (line);
 		}
+		line = ft_strjoin(line, buf);
 		i++;
 	}
 	free (buf);
