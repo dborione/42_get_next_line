@@ -10,44 +10,38 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "get_next_line.h"
-# include <stdio.h>
+#include "get_next_line.h"
+#include <stdio.h>
 
-char	*get_next_line(int fd)
+char	*get_next_line_letters(int fd)
 {
 	static char	*stash;
-	static int i;
 	char		*buf;
-	int j;
+	char		*line;
+	int	i;
 
 	if (!fd)
 		return (NULL);
-	if (BUFFER_SIZE < 0)
-		return (NULL);
-	if (!i)
-		i = 0;
-	else
-		i++;
-	j = i;
-	if (!stash)
-		stash = "";
 	buf = malloc(sizeof(*buf) * (BUFFER_SIZE + 1));
 	if (!buf)
 		return (NULL);
-	while (fd)
+	if (!stash)
+		stash = "";
+	i = 0;
+	while (i < BUFFER_SIZE && read(fd, buf, 1))
 	{
-		printf("%zd\n", read(fd, buf, BUFFER_SIZE));
-			//return (NULL);
 		stash = ft_strjoin(stash, buf);
-		while (stash[i])
+		if (*buf == '\n')
 		{
-			if (stash[i] == '\n')
-			{
-				free (buf);
-				return (ft_substr(stash, j, (i + 1) - j));
-			}
-			i++;
+			line = malloc(sizeof(*buf) * (BUFFER_SIZE + 1));
+			if (!line)
+				return (NULL);
+			line = stash;
+			stash = buf + 1;
+			free (buf);
+			return (line);
 		}
+		i++;
 	}
 	free (buf);
 	return (NULL);

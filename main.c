@@ -4,11 +4,11 @@
 int main()
 {
     int fd;
-    int i = 8;
+    int i = 10;
     fd = open ("test.txt", O_RDONLY);
     while (i > 0 && fd)
     {
-        printf("%s|", get_next_line(fd));
+        printf("%s|", get_next_line_letters(fd));
         i--;
     }
     close (fd);
