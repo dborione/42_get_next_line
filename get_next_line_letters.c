@@ -15,25 +15,30 @@
 
 char	*get_next_line_letters(int fd)
 {
-	static char	*buf;
-	char		*line;
-	int			i;
+	static char	*line;
+	char		*buf;
+	int i = 0;
 
 	if (!fd)
 		return (NULL);
+	if (!line)
+		line = "";
 	buf = malloc(sizeof(*buf) * (BUFFER_SIZE + 1));
 	if (!buf)
 		return (NULL);
-	i = 0;
-	while (i < BUFFER_SIZE && read(fd, buf, 1))
+	while (read(fd, buf, BUFFER_SIZE))
 	{
-		if (*buf == '\n')
+		while (buf[i])
 		{
-			line[ft_strlen(line)] = '\n';
-			return (line);
+			if (buf[i] == '\n')
+			{
+				//buf = &(buf[i]);
+				line = ft_strjoin(line, buf);
+				free (buf);
+				return (line);
+			}
+			i++;
 		}
-		line = ft_strjoin(line, buf);
-		i++;
 	}
 	free (buf);
 	return (NULL);
