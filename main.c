@@ -9,6 +9,7 @@ int main()
     while (i > 0 && fd)
     {
         printf("%s|", get_next_line(fd));
+        //get_next_line(fd);
         i--;
     }
     close (fd);

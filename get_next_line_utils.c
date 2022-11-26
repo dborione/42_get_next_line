@@ -84,6 +84,32 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	return (s2);
 }
 
+char	*ft_strchr(const char *s, int c)
+{
+	size_t	i;
+
+	i = 0;
+	while (s[i] != (char)c)
+	{
+		i++;
+		if (i == (ft_strlen(s) + 1))
+			return (NULL);
+	}
+	return ((char *)&s[i]);
+}
+char	*ft_strrchr(char *str, int c)
+{
+	int		len;
+
+	len = ft_strlen(str);
+	while (len > -1)
+	{
+		if (str[len] == (char)c)
+			return (&str[len]);
+		len--;
+	}
+	return (NULL);
+}
 char	*ft_strjoin(char const *s1, char const *s2)
 {
 	char		*s3;
