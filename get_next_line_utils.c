@@ -76,19 +76,19 @@ char	*ft_strchr(const char *s, int c)
 	return ((char *)&s[i]);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char *s1, char const *s2)
 {
 	char		*s3;
-	size_t		buff;
+	size_t		buf;
 
 	if (!s2 || !s1)
 		return (NULL);
-	buff = ft_strlen(s1) + ft_strlen(s2) + 1;
-	s3 = malloc (sizeof(char) * buff);
+	buf = ft_strlen(s1) + ft_strlen(s2) + 1;
+	s3 = malloc (sizeof(*s3) * buf);
 	if (!s3)
 		return (NULL);
 	ft_strlcpy(s3, s1, (ft_strlen(s1) + 1));
-	ft_strlcat(s3, s2, buff);
+	ft_strlcat(s3, s2, buf);
 	return (s3);
 }
 		// printf("buf:%s\n", buf);
