@@ -28,6 +28,7 @@ char	*ft_read_line(int fd, char *stash)
 			free (buf);
 			return (NULL);
 		}
+		buf[read_ret] = '\0';
 		stash = ft_strjoin(stash, buf);
 		if (!stash)
 		{
@@ -36,31 +37,39 @@ char	*ft_read_line(int fd, char *stash)
 		}
 	}
 	free (buf);
+	//printf("stash:%s:fin\n", stash);
 	return (stash);
 }
 
 char	*get_next_line(int fd)
 {
 	static char	*stash;
-	//char	*return_line;
-	//int	line_len;
+	char	*line;
+	int	i;
 
-	if (!fd || BUFFER_SIZE < 0)
+	i = 0;
+	if (!fd || BUFFER_SIZE <= 0)
 		return (NULL);
 	if (!stash)
 		stash = "";
-	printf("stash:%s\n", stash);
 	stash = ft_read_line(fd, stash);
-	//printf("strrchr:%s:fin\n", ft_strchr(stash, '\n'));
-	// line_len = ft_strlen(ft_strchr(stash, '\n'));
-	// return_line = malloc (sizeof(*return_line) * ((ft_strlen(stash) + 1) - line_len));
-	// if (!return_line)
-	// {
-	// 	free (stash);
-	// 	return (NULL);
-	// }
-	// ft_strlcpy(return_line, stash, ft_strlen(stash) + 1);
-	// free (stash);
-	// return (return_line);
-	return (stash);
+	if (!stash)
+		return (NULL);
+	while (stash[i] != '\n')
+		i++;
+	line = malloc(sizeof(*line) * (i + 2));
+	if (!line)
+	{
+		free (stash);
+		return (NULL);
+	}
+	ft_strlcpy(line, stash, (i + 2));
+	// transformer stash en gardant juste le debut de la ligne d'apres
+	//stash = ft_substr(stash, i + 1, ft_strlen(stash));
+	//printf("stash:%s:fin\n", stash);
+	//stash = ft_strjoin(line, stash);
+	while (*stash != '\n')
+		stash++;
+	//free (stash);
+	return (line);
 }
