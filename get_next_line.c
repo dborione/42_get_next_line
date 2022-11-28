@@ -37,7 +37,6 @@ char	*ft_read_line(int fd, char *stash)
 		}
 	}
 	free (buf);
-	//printf("stash:%s:fin\n", stash);
 	return (stash);
 }
 
@@ -64,12 +63,8 @@ char	*get_next_line(int fd)
 		return (NULL);
 	}
 	ft_strlcpy(line, stash, (i + 2));
-	// transformer stash en gardant juste le debut de la ligne d'apres
-	//stash = ft_substr(stash, i + 1, ft_strlen(stash));
-	//printf("stash:%s:fin\n", stash);
-	//stash = ft_strjoin(line, stash);
 	while (*stash != '\n')
 		stash++;
-	//free (stash);
+	stash++;
 	return (line);
 }
