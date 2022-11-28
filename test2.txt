@@ -1,2 +1,1 @@
-j
-k
+Complétez get_next_line()

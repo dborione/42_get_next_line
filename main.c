@@ -6,14 +6,17 @@ int main()
     int fd;
     char *line;
     int i = 10;
+
     fd = open ("test.txt", O_RDONLY);
-    while (i > 0 && fd)
+    line = malloc(sizeof(*line));
+    if (!line)
+        return (0);
+    while (i > 0)
     {
-        //printf("%s|", get_next_line(fd));
-        line = get_next_line(fd);
         printf("%s|", line);
-        i--;
+        line = get_next_line(fd);
         free (line);
+        i--;
     }
     close (fd);
     //system("leaks a.out");
