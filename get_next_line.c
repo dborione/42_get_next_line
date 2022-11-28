@@ -22,6 +22,8 @@ char	*ft_read_line(int fd, char *stash)
 	buf = malloc(sizeof(*buf) * (BUFFER_SIZE + 1));
 	if (!buf)
 		return (NULL);
+	// if (read(fd, buf, BUFFER_SIZE) == 0)
+	// 	return (NULL);
 	if (!ft_strchr(stash, '\n'))
 	{
 		while ((read_ret = read(fd, buf, BUFFER_SIZE)))
@@ -31,10 +33,8 @@ char	*ft_read_line(int fd, char *stash)
 				free (buf);
 				return (NULL);
 			}
-			//printf("read_ret:%d\n", read_ret);
 			buf[read_ret] = '\0';
 			stash = ft_strjoin(stash, buf);
-			//printf("stash1");
 			if (!stash)
 			{
 				free (buf);
@@ -44,14 +44,13 @@ char	*ft_read_line(int fd, char *stash)
 			{
 				free (buf);
 				//free (stash);
-				//printf("ns:%s:fin\n", stash);
-				//printf("stash3");
 				return (stash);
 			}
 		}
 	}
-	//printf("stash2");
 	free (buf);
+	if (*stash == '\0')
+		return (NULL);
 	return (stash);
 }
 
@@ -61,19 +60,15 @@ char *ft_copy_line(char *stash)
 	int			i;
 
 	i = 0;
-	//printf("stash5");
 	while (stash[i] && stash[i] != '\n')
 		i++;
-	//printf("stash6");
 	line = malloc(sizeof(*line) * (i + 2));
 	if (!line)
 	{
 		free (stash);
 		return (NULL);
 	}
-	//printf("stash7");
 	ft_strlcpy(line, stash, (i + 2));
-	//printf("stash8");
 	return (line);
 }
 
@@ -82,8 +77,10 @@ char	*get_next_line(int fd)
 	static char	*stash;
 	char *line;
 
+	
 	if (!fd || BUFFER_SIZE <= 0)
 		return (NULL);
+	
 	if (!stash)
 	{
 		stash = malloc(sizeof(*stash));
@@ -94,15 +91,12 @@ char	*get_next_line(int fd)
 	stash = ft_read_line(fd, stash);
 	if (!stash)
 	{
-		//printf("stash4");
 		free (stash);
 		return (NULL);
 	}
 	line = ft_copy_line(stash);
-	//printf("stash9");
 	while (*stash && *stash != '\n')
 		stash++;
-	//printf("stash10");
 	stash++;
 	return (line);
 }
