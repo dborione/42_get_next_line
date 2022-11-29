@@ -5,20 +5,20 @@ int main()
 {
     int fd;
     char *line = NULL;
+    int i = 10;
 
-    fd = open ("test.txt", O_RDONLY);
+    fd = open("test.txt", O_RDONLY);
     //line = malloc(sizeof(*line));
     // if (!line)
     //     return (0);
-    while (1)
+    while (i > 0)
     {
         line = get_next_line(fd);
-        if (!line)
-            break;
         printf("%s|", line);
         free (line);
+        i--;
     }
-    close (fd);
+    //close (fd);
     //system("leaks a.out");
     return (0);
 }
