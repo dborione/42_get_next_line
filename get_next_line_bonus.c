@@ -85,21 +85,21 @@ char *ft_copy_stash(char *stash)
 
 char	*get_next_line(int fd)
 {
-	static char	*stash;
+	static char	*stash[OPEN_MAX];
 	char 		*line;
 
 	if (fd < 0 || fd > OPEN_MAX || BUFFER_SIZE <= 0)
 		return (NULL);
-	if (!stash)
+	if (!stash[fd])
 	{
-		stash = malloc(sizeof(*stash));
-		if (!stash)
+		stash[fd] = malloc(sizeof(*stash));
+		if (!stash[fd])
 			return (NULL);
 	}
-	stash = ft_read_line(fd, stash);
-	if (!stash)
+	stash[fd] = ft_read_line(fd, stash[fd]);
+	if (!stash[fd])
 		return (NULL);
-	line = ft_copy_line(stash);
-	stash = ft_copy_stash(stash);
+	line = ft_copy_line(stash[fd]);
+	stash[fd] = ft_copy_stash(stash[fd]);
 	return (line);
 }
