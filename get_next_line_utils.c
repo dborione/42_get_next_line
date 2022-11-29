@@ -76,22 +76,6 @@ char	*ft_strchr(const char *s, int c)
 	return ((char *)&s[i]);
 }
 
-int	ft_strrchr(const char *s, int c)
-{
-	int		i;
-
-	i = 0;
-	if (!s)
-		return (0);
-	while (s[i])
-	{
-		if (s[i] == c)
-			return (1);
-		i++;
-	}
-	return (0);
-}
-
 char	*ft_strjoin(char *s1, char const *s2)
 {
 	char		*s3;

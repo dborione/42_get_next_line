@@ -20,12 +20,16 @@ char	*ft_read_line(int fd, char *stash)
 
 	buf = malloc(sizeof(*buf) * (BUFFER_SIZE + 1));
 	if (!buf)
+	{
+		free(stash);
 		return (NULL);
+	}
 	while (!ft_strchr(stash, '\n') && (read_ret = read(fd, buf, BUFFER_SIZE)))
 	{
 		if (read_ret == -1)
 		{
 			free(buf);
+			free(stash);
 			return (NULL);
 		}
 		buf[read_ret] = '\0';
@@ -33,7 +37,10 @@ char	*ft_read_line(int fd, char *stash)
 	}
 	free(buf);
 	if (*stash == '\0')
+	{
+		free(stash);
 		return (NULL);
+	}
 	return (stash);
 }
 
@@ -91,130 +98,8 @@ char	*get_next_line(int fd)
 	}
 	stash = ft_read_line(fd, stash);
 	if (!stash)
-	{
-		free(stash);
 		return (NULL);
-	}
 	line = ft_copy_line(stash);
 	stash = ft_copy_stash(stash);
 	return (line);
 }
- 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// char	*ft_update_stash(char *stash)
-// {
-// 	int		i;
-// 	int		len;
-// 	char	*buffer;
-
-// 	i = 0;
-// 	if (!stash)
-// 		return (NULL);
-// 	len = ft_strlen(stash);
-// 	while (stash[i] != '\n' && stash[i])
-// 		i++;
-// 	if (!stash[i])
-// 	{
-// 		free(stash);
-// 		return (NULL);
-// 	}
-// 	buffer = malloc(sizeof(*buffer) * (len - i + 1));
-// 	i++;
-// 	len = 0;
-// 	while (stash[i])
-// 		buffer[len++] = stash[i++];
-// 	free(stash);
-// 	return (buffer);
-// }
-
-// char	*ft_get_line(char *stash)
-// {
-// 	char	*line;
-// 	int		i;
-
-// 	i = 0;
-// 	if (!stash[0])
-// 		return (NULL);
-// 	while (stash[i] != '\n' && stash[i])
-// 		i++;
-// 	line = malloc(sizeof(*line) * (i + 2));
-// 	if (!line)
-// 		return (NULL);
-// 	i = 0;
-// 	while (stash[i] != '\n' && stash[i])
-// 	{
-// 		line[i] = stash[i];
-// 		i++;
-// 	}
-// 	if (stash[i] == '\n' && stash[i])
-// 	{
-// 		line[i] = '\n';
-// 		i++;
-// 	}
-// 	return (line);
-// }
-
-// char	*ft_readline(int fd, char *stash)
-// {
-// 	char	*buffer;
-// 	int		a;
-
-// 	buffer = malloc(sizeof(*buffer) * (BUFFER_SIZE + 1));
-// 	if (!buffer)
-// 		return (NULL);
-// 	if (!stash)
-// 		stash = malloc(sizeof(*stash));
-// 	a = 1;
-// 	while (!ft_strrchr(buffer, '\n') && a > 0)
-// 	{
-// 		a = read(fd, buffer, BUFFER_SIZE);
-// 		if (a < 0)
-// 		{
-// 			free(buffer);
-// 			free(stash);
-// 			return (NULL);
-// 		}
-// 		buffer[a] = '\0';
-// 		stash = ft_strjoin(stash, buffer);
-// 	}
-// 	free(buffer);
-// 	return (stash);
-// }
-
-// char	*get_next_line(int fd)
-// {
-// 	static char	*stash;
-// 	char		*line;
-
-// 	if (fd < 0 || fd > OPEN_MAX || BUFFER_SIZE < 1 || BUFFER_SIZE > INT_MAX)
-// 		return (NULL);
-// 	stash = ft_readline(fd, stash);
-// 	if (!stash)
-// 		return (NULL);
-// 	line = ft_get_line(stash);
-// 	stash = ft_update_stash(stash);
-// 	return (line);
-// }

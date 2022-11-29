@@ -7,7 +7,7 @@ int main()
     char *line = NULL;
     int i = 10;
 
-    fd = open("test.txt", O_RDONLY);
+    fd = open("test2.txt", O_RDONLY);
     //line = malloc(sizeof(*line));
     // if (!line)
     //     return (0);
@@ -19,6 +19,6 @@ int main()
         i--;
     }
     //close (fd);
-    //system("leaks a.out");
+    system("leaks a.out");
     return (0);
 }
