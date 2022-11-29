@@ -10,8 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "get_next_line.h"
-# include <stdio.h>
+#include "get_next_line_bonus.h"
 
 char	*ft_read_line(int fd, char *stash)
 {
@@ -21,11 +20,13 @@ char	*ft_read_line(int fd, char *stash)
 	buf = malloc(sizeof(*buf) * (BUFFER_SIZE + 1));
 	if (!buf)
 	{
-		free(stash);
+		free (stash);
 		return (NULL);
 	}
-	while (!ft_strchr(stash, '\n') && ((read_ret = read(fd, buf, BUFFER_SIZE))))
+	read_ret = 1;
+	while (!ft_strchr(stash, '\n') && (read_ret != 0))
 	{
+		read_ret = read(fd, buf, BUFFER_SIZE);
 		if (read_ret < 0)
 		{
 			free(buf);
@@ -44,7 +45,7 @@ char	*ft_read_line(int fd, char *stash)
 	return (stash);
 }
 
-char *ft_copy_line(char *stash)
+char	*ft_copy_line(char *stash)
 {
 	char		*line;
 	int			i;
@@ -62,7 +63,7 @@ char *ft_copy_line(char *stash)
 	return (line);
 }
 
-char *ft_copy_stash(char *stash)
+char	*ft_copy_stash(char *stash)
 {
 	char		*new_stash;
 	int			stash_len;
@@ -72,7 +73,7 @@ char *ft_copy_stash(char *stash)
 	while (stash[i] && stash[i] != '\n')
 		i++;
 	stash_len = ft_strlen(stash) - i + 1;
-	new_stash = malloc(sizeof(*new_stash) * stash_len);
+	new_stash = malloc(sizeof(*new_stash) * (stash_len + 1));
 	if (!new_stash)
 	{
 		free(stash);
@@ -86,9 +87,9 @@ char *ft_copy_stash(char *stash)
 char	*get_next_line(int fd)
 {
 	static char	*stash[OPEN_MAX];
-	char 		*line;
+	char		*line;
 
-	if (fd < 0 || fd > OPEN_MAX || BUFFER_SIZE <= 0)
+	if (fd < 0 || fd > OPEN_MAX || BUFFER_SIZE <= 0 || (read(fd, &line, 0) < 0))
 		return (NULL);
 	if (!stash[fd])
 	{
@@ -98,7 +99,10 @@ char	*get_next_line(int fd)
 	}
 	stash[fd] = ft_read_line(fd, stash[fd]);
 	if (!stash[fd])
+	{
+		free(stash[fd]);
 		return (NULL);
+	}
 	line = ft_copy_line(stash[fd]);
 	stash[fd] = ft_copy_stash(stash[fd]);
 	return (line);

@@ -10,8 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "get_next_line.h"
-# include <stdio.h>
+#include "get_next_line.h"
 
 char	*ft_read_line(int fd, char *stash)
 {
@@ -24,8 +23,10 @@ char	*ft_read_line(int fd, char *stash)
 		free(stash);
 		return (NULL);
 	}
-	while (!ft_strchr(stash, '\n') && ((read_ret = read(fd, buf, BUFFER_SIZE))))
+	read_ret = 1;
+	while (!ft_strchr(stash, '\n') && (read_ret != 0))
 	{
+		read_ret = read(fd, buf, BUFFER_SIZE);
 		if (read_ret < 0)
 		{
 			free(buf);
@@ -44,7 +45,7 @@ char	*ft_read_line(int fd, char *stash)
 	return (stash);
 }
 
-char *ft_copy_line(char *stash)
+char	*ft_copy_line(char *stash)
 {
 	char		*line;
 	int			i;
@@ -62,7 +63,7 @@ char *ft_copy_line(char *stash)
 	return (line);
 }
 
-char *ft_copy_stash(char *stash)
+char	*ft_copy_stash(char *stash)
 {
 	char		*new_stash;
 	int			stash_len;
@@ -86,7 +87,7 @@ char *ft_copy_stash(char *stash)
 char	*get_next_line(int fd)
 {
 	static char	*stash;
-	char 		*line;
+	char		*line;
 
 	if (fd < 0 || fd > OPEN_MAX || BUFFER_SIZE <= 0)
 		return (NULL);

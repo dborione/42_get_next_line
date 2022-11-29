@@ -13,12 +13,15 @@
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 5
+# endif
+
 # include <stdlib.h> //malloc
 # include <unistd.h> //write/read
 # include <fcntl.h> //open
 # include <string.h> //size_t
 # include <limits.h>
-
 
 char	*ft_strjoin(char *s1, char const *s2);
 size_t	ft_strlen(const char *str);
