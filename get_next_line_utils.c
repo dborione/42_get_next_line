@@ -76,6 +76,22 @@ char	*ft_strchr(const char *s, int c)
 	return ((char *)&s[i]);
 }
 
+int	ft_strrchr(const char *s, int c)
+{
+	int		i;
+
+	i = 0;
+	if (!s)
+		return (0);
+	while (s[i])
+	{
+		if (s[i] == c)
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
 char	*ft_strjoin(char *s1, char const *s2)
 {
 	char		*s3;
@@ -86,9 +102,13 @@ char	*ft_strjoin(char *s1, char const *s2)
 	buf = ft_strlen(s1) + ft_strlen(s2) + 1;
 	s3 = malloc (sizeof(*s3) * buf);
 	if (!s3)
+	{
+		free(s1);
 		return (NULL);
+	}
 	ft_strlcpy(s3, s1, (ft_strlen(s1) + 1));
 	ft_strlcat(s3, s2, buf);
+	free(s1);
 	return (s3);
 }
 		// printf("buf:%s\n", buf);
