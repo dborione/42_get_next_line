@@ -64,23 +64,6 @@ size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
 	return (dstlen + srclen);
 }
 
-void	*ft_calloc(size_t count, size_t size)
-{
-	char	*str;
-	size_t	i;
-
-	i = 0;
-	str = malloc(size * count);
-	if (!str)
-		return (NULL);
-	while (i < (size * count))
-	{
-		str[i] = '\0';
-		i++;
-	}
-	return (str);
-}
-
 char	*ft_strrchr(char *str, int c)
 {
 	int		len;
@@ -93,20 +76,6 @@ char	*ft_strrchr(char *str, int c)
 		len--;
 	}
 	return (0);
-}
-
-char	*ft_strchr(const char *s, int c)
-{
-	unsigned long	i;
-
-	i = 0;
-	while (s[i] != (unsigned char)c)
-	{
-		i++;
-		if (i == (ft_strlen(s) + 1))
-			return (0);
-	}
-	return ((char *)&s[i]);
 }
 
 char	*ft_strjoin(char *s1, char const *s2)
@@ -128,7 +97,3 @@ char	*ft_strjoin(char *s1, char const *s2)
 	free(s1);
 	return (s3);
 }
-		// printf("buf:%s\n", buf);
-		// printf("stash:%s\n", stash);
-		//printf("%c|", stash[i]);
-		//OPEN_MAX

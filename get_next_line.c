@@ -12,24 +12,10 @@
 
 #include "get_next_line.h"
 
-char	*ft_read_line(int fd, char *stash)
+char	*ft_search_new_line(char *buf, char *stash, int fd)
 {
-	char	*buf;
 	int		read_ret;
 
-	buf = malloc(sizeof(*buf) * (BUFFER_SIZE + 1));
-	if (!buf)
-		return (NULL);
-	if (!stash)
-	{
-		//stash = malloc(sizeof(char));
-		stash = ft_calloc(1, 1);
-		if (!stash)
-		{
-			free (buf);
-			return (NULL);
-		}
-	}
 	read_ret = 1;
 	while (!ft_strrchr(stash, '\n') && (read_ret != 0))
 	{
@@ -50,7 +36,28 @@ char	*ft_read_line(int fd, char *stash)
 		return (NULL);
 	}
 	return (stash);
- }
+}
+
+char	*ft_read_line(int fd, char *stash)
+{
+	char	*buf;
+
+	buf = malloc(sizeof(*buf) * (BUFFER_SIZE + 1));
+	if (!buf)
+		return (NULL);
+	if (!stash)
+	{
+		stash = malloc(sizeof(*stash));
+		if (!stash)
+		{
+			free (buf);
+			return (NULL);
+		}
+		*stash = '\0';
+	}
+	stash = ft_search_new_line(buf, stash, fd);
+	return (stash);
+}
 
 char	*ft_copy_line(char *stash)
 {

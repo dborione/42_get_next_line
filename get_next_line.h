@@ -30,6 +30,5 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
 char	*get_next_line(int fd);
 void	*ft_calloc(size_t count, size_t size);
 char	*ft_strrchr(char *str, int c);
-char	*ft_strchr(const char *s, int c);
 
 #endif
