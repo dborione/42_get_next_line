@@ -19,15 +19,22 @@ char	*ft_read_line(int fd, char *stash)
 
 	buf = malloc(sizeof(*buf) * (BUFFER_SIZE + 1));
 	if (!buf)
-	{
-		free(stash);
 		return (NULL);
+	if (!stash)
+	{
+		//stash = malloc(sizeof(char));
+		stash = ft_calloc(1, 1);
+		if (!stash)
+		{
+			free (buf);
+			return (NULL);
+		}
 	}
 	read_ret = 1;
-	while (!ft_strchr(stash, '\n') && (read_ret != 0))
+	while (!ft_strrchr(stash, '\n') && (read_ret != 0))
 	{
 		read_ret = read(fd, buf, BUFFER_SIZE);
-		if (read_ret < 0)
+		if (read_ret == -1)
 		{
 			free(buf);
 			free(stash);
@@ -43,7 +50,7 @@ char	*ft_read_line(int fd, char *stash)
 		return (NULL);
 	}
 	return (stash);
-}
+ }
 
 char	*ft_copy_line(char *stash)
 {
@@ -79,7 +86,10 @@ char	*ft_copy_stash(char *stash)
 		free(stash);
 		return (NULL);
 	}
-	ft_strlcpy(new_stash, &(stash[i + 1]), stash_len);
+	if (stash_len == 1)
+		ft_strlcpy(new_stash, &(stash[i]), stash_len);
+	else
+		ft_strlcpy(new_stash, &(stash[i + 1]), stash_len);
 	free(stash);
 	return (new_stash);
 }
@@ -91,12 +101,6 @@ char	*get_next_line(int fd)
 
 	if (fd < 0 || fd > OPEN_MAX || BUFFER_SIZE <= 0)
 		return (NULL);
-	if (!stash)
-	{
-		stash = malloc(sizeof(*stash));
-		if (!stash)
-			return (NULL);
-	}
 	stash = ft_read_line(fd, stash);
 	if (!stash)
 		return (NULL);
