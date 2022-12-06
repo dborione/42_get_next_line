@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dborione <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/30 11:28:13 by dborione          #+#    #+#             */
-/*   Updated: 2022/12/06 11:55:20 by dborione         ###   ########.fr       */
+/*   Created: 2022/11/30 11:28:22 by dborione          #+#    #+#             */
+/*   Updated: 2022/11/30 11:28:24 by dborione         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 size_t	ft_strlen(const char *str)
 {
@@ -84,10 +84,7 @@ char	*ft_strjoin(char *s1, char const *s2)
 	size_t		buf;
 
 	if (!s2 || !s1)
-	{
-		free(s1);
 		return (NULL);
-	}
 	buf = ft_strlen(s1) + ft_strlen(s2) + 1;
 	s3 = malloc (sizeof(*s3) * buf);
 	if (!s3)

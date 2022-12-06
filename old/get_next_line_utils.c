@@ -6,7 +6,7 @@
 /*   By: dborione <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 11:28:13 by dborione          #+#    #+#             */
-/*   Updated: 2022/12/06 11:55:20 by dborione         ###   ########.fr       */
+/*   Updated: 2022/11/30 11:28:14 by dborione         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,10 +84,7 @@ char	*ft_strjoin(char *s1, char const *s2)
 	size_t		buf;
 
 	if (!s2 || !s1)
-	{
-		free(s1);
 		return (NULL);
-	}
 	buf = ft_strlen(s1) + ft_strlen(s2) + 1;
 	s3 = malloc (sizeof(*s3) * buf);
 	if (!s3)
