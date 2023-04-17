@@ -6,12 +6,11 @@
 /*   By: dborione <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 15:50:38 by dborione          #+#    #+#             */
-/*   Updated: 2022/12/06 11:54:39 by dborione         ###   ########.fr       */
+/*   Updated: 2023/04/14 17:24:02 by dborione         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include <stdio.h>
 
 char	*ft_free(char *str)
 {

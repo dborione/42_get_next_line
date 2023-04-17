@@ -1,17 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dborione <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/10 15:50:38 by dborione          #+#    #+#             */
-/*   Updated: 2022/12/06 11:54:53 by dborione         ###   ########.fr       */
+/*   Created: 2023/04/14 17:24:22 by dborione          #+#    #+#             */
+/*   Updated: 2023/04/14 17:24:25 by dborione         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
-#include <stdio.h>
+#include "get_next_line_bonus.h"
 
 char	*ft_free(char *str)
 {
